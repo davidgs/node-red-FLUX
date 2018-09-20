@@ -1,0 +1,197 @@
+[
+    {
+        "id": "afad393d.2a85a8",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "512be0d.249882",
+        "type": "inject",
+        "z": "afad393d.2a85a8",
+        "name": "",
+        "topic": "",
+        "payload": "go",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 167,
+        "y": 314,
+        "wires": [
+            [
+                "9e70027a.a196e"
+            ]
+        ]
+    },
+    {
+        "id": "9e70027a.a196e",
+        "type": "from",
+        "z": "afad393d.2a85a8",
+        "bucket": "telegraf",
+        "name": "from",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "follow-redirects": true,
+        "x": 369.33331298828125,
+        "y": 385.77777099609375,
+        "wires": [
+            [
+                "30268463.0b7f4c"
+            ]
+        ]
+    },
+    {
+        "id": "ae68f20d.8c04e",
+        "type": "filter",
+        "z": "afad393d.2a85a8",
+        "key": "_measurement",
+        "value": "cpu",
+        "name": "filter",
+        "method": "POST",
+        "ret": "txt",
+        "url": "",
+        "follow-redirects": true,
+        "x": 704.333251953125,
+        "y": 512.4444885253906,
+        "wires": [
+            [
+                "bf3c003d.f250f"
+            ]
+        ]
+    },
+    {
+        "id": "30268463.0b7f4c",
+        "type": "fluxrange",
+        "z": "afad393d.2a85a8",
+        "start": "-30s",
+        "name": "from",
+        "method": "POST",
+        "ret": "txt",
+        "url": "",
+        "follow-redirects": true,
+        "x": 542.3333435058594,
+        "y": 452.8889465332031,
+        "wires": [
+            [
+                "ae68f20d.8c04e"
+            ]
+        ]
+    },
+    {
+        "id": "9975c202.e3f9",
+        "type": "debug",
+        "z": "afad393d.2a85a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1402.4444580078125,
+        "y": 646.6666870117188,
+        "wires": []
+    },
+    {
+        "id": "3a1283a9.72c99c",
+        "type": "tableify",
+        "z": "afad393d.2a85a8",
+        "name": "tableify",
+        "before": "",
+        "after": "",
+        "tableStyle": "padding:2px;margin:5px;width:100%;",
+        "theadStyle": "padding:2px;margin:5px;",
+        "tbodyStyle": "padding:2px;margin:5px;",
+        "trStyle": "padding:2px;margin:5px;",
+        "tdStyle": "padding:2px;margin:5px;",
+        "x": 1275.7777786254883,
+        "y": 791.4444541931152,
+        "wires": [
+            [
+                "167d9c43.f545e4"
+            ]
+        ]
+    },
+    {
+        "id": "c213e9fb.91c2f8",
+        "type": "csv to json ext",
+        "z": "afad393d.2a85a8",
+        "name": "",
+        "version": "0.1",
+        "source": "payload",
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "ignoreEmpty": false,
+        "checkType": false,
+        "trim": true,
+        "noheader": true,
+        "includeColumns": "",
+        "headers": "",
+        "debug": false,
+        "x": 1123.22216796875,
+        "y": 711.888916015625,
+        "wires": [
+            [
+                "3a1283a9.72c99c",
+                "9975c202.e3f9"
+            ]
+        ]
+    },
+    {
+        "id": "167d9c43.f545e4",
+        "type": "file",
+        "z": "afad393d.2a85a8",
+        "name": "",
+        "filename": "/Users/denizkusefoglu/Desktop/graph.html",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1511.6666870117188,
+        "y": 903.2222490310669,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf3c003d.f250f",
+        "type": "filter",
+        "z": "afad393d.2a85a8",
+        "key": "cpu",
+        "value": "cpu0",
+        "name": "filter",
+        "method": "POST",
+        "ret": "txt",
+        "url": "",
+        "follow-redirects": true,
+        "x": 899.5,
+        "y": 575,
+        "wires": [
+            [
+                "503f3a3c.8a00f4"
+            ]
+        ]
+    },
+    {
+        "id": "503f3a3c.8a00f4",
+        "type": "filter",
+        "z": "afad393d.2a85a8",
+        "key": "_field",
+        "value": "usage_idle",
+        "name": "filter",
+        "method": "POST",
+        "ret": "txt",
+        "url": "",
+        "follow-redirects": true,
+        "x": 1011.5,
+        "y": 645,
+        "wires": [
+            [
+                "c213e9fb.91c2f8"
+            ]
+        ]
+    }
+]

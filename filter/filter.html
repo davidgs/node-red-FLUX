@@ -1,0 +1,45 @@
+<script type="text/x-red" data-template-name="filter">
+    <div class="form-row">
+        <label for="node-input-key"><i class="fa fa-server"></i> <span data-i18n="httpin.label.url">filter key:</span></label>
+        <input type="text" id="node-input-key" placeholder="_measurement">
+    </div>
+    <div class="form-row">
+        <label for="node-input-value"><i class="fa fa-server"></i> <span data-i18n="httpin.label.url">filter value:</span></label>
+        <input type="text" id="node-input-value" placeholder="cpu">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="filter">
+    <p>Provides a node for filtering data using flux FILTER function.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('filter', {
+        category: 'FLUX',
+        color: "rgb(69,210, 150)",
+        defaults: {
+            key: { value: "" },
+            value: { value: "" },
+            name: { value: "filter" },
+            method: { value: "POST" },
+            ret: { value: "txt" },
+            url: { value: "" },
+            "follow-redirects": { value: true },
+            tls: { type: "tls-config", required: false }
+        },
+        credentials: {
+            user: { type: "text" },
+            password: { type: "password" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "flux.png",
+        label: function () {
+            if (this.value !== "") {
+                return `filter: (fn: (r) => r.${this.key} == \"${this.value}\")`
+            }
+            return "filter";
+        },
+        labelStyle: "",
+    });
+</script>

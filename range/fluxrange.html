@@ -1,0 +1,42 @@
+<script type="text/x-red" data-template-name="fluxrange">
+    <div class="form-row">
+        <label for="node-input-start"><i class="fa fa-server"></i> <span data-i18n="httpin.label.url">start:</span></label>
+        <input type="text" id="node-input-start" placeholder="-30s">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fluxrange">
+    <p>Provides a node for returning data from a time RANGE.</p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('fluxrange', {
+        category: 'FLUX',
+        color: "rgb(69,210, 150)",
+        defaults: {
+            start: { value: "" },
+            name: { value: "from" },
+            method: { value: "POST" },
+            ret: { value: "txt" },
+            url: { value: "" },
+            "follow-redirects": { value: true },
+            tls: { type: "tls-config", required: false }
+        },
+        credentials: {
+            user: { type: "text" },
+            password: { type: "password" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "flux.png",
+        label: function () {
+            if (this.start !== "") {
+                return `range: (start: \"${this.start}\")`
+            }
+            return "range";
+        },
+        labelStyle: "",
+
+    });
+</script>

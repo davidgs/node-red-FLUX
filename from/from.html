@@ -1,0 +1,40 @@
+<script type="text/x-red" data-template-name="from">
+    <div class="form-row">
+        <label for="node-input-bucket"><i class="fa fa-server"></i> <span data-i18n="httpin.label.url">bucket:</span></label>
+        <input type="text" id="node-input-bucket" placeholder="telegraf">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="from">
+    <p>Provides a node for selecting a database using FROM.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('from', {
+        category: 'FLUX',
+        color: "rgb(69,210, 150)",
+        defaults: {
+            bucket: { value: "" },
+            name: { value: "from" },
+            method: { value: "POST" },
+            ret: { value: "txt" },
+            url: { value: "" },
+            "follow-redirects": { value: true },
+            tls: { type: "tls-config", required: false }
+        },
+        credentials: {
+            user: { type: "text" },
+            password: { type: "password" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "flux.png",
+        label: function () {
+            if (this.bucket !== "") {
+                return `from: (bucket: \"${this.bucket}\")`
+            }
+            return "from";
+        },
+        labelStyle: "",
+    });
+</script>
